@@ -1,7 +1,6 @@
 Description
 
 You are given a number X, you can perform two operations:
-
     Double: Multiply the number on the display by 2, or;
     Decrement: Subtract 1 from the number on the display.
 

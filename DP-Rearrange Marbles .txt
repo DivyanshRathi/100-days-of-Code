@@ -1,6 +1,6 @@
 Description
 
-You are given N1 indistinguishable marbles of green colour and N2 indistinguishable marbles of red colour. You have to find the number of arrangements such that no more than K1 consecutive marbles of green colour and no more than K2 consecutive marbles of red colour are adjacent to each other.
+You  are given N1 indistinguishable marbles of green colour and N2 indistinguishable marbles of red colour. You have to find the number of arrangements such that no more than K1 consecutive marbles of green colour and no more than K2 consecutive marbles of red colour are adjacent to each other.
 
 Input Format
 
@@ -31,6 +31,7 @@ Sample Output 1
 3
 5
 0
+
 
 Note
 
