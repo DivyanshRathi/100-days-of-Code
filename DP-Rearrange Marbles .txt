@@ -1,0 +1,146 @@
+Description
+
+You are given N1 indistinguishable marbles of green colour and N2 indistinguishable marbles of red colour. You have to find the number of arrangements such that no more than K1 consecutive marbles of green colour and no more than K2 consecutive marbles of red colour are adjacent to each other.
+
+Input Format
+
+The first line of the input contains one integer T - the number of test cases. Then T test cases follow.
+
+The first and only line of each test case contains four space-separated integers N1, N2, K1, K2.
+
+Output Format
+
+For each test case, print the required number of arrangements. Since the answer can be large, print it modulo 10^8.
+
+Constraints
+
+1≤ T ≤ 1000
+
+1≤ N1, N2 ≤ 100
+
+1≤ K1, K2 ≤ 10
+Sample Input 1
+
+3
+2 2 1 5
+2 4 1 2
+3 5 2 1
+
+Sample Output 1
+
+3
+5
+0
+
+Note
+
+For the first test case, the following are the 3 different arrangements possible:
+
+For the second test case, the following are the 5 different arrangements possible:
+
+For the third test case, there are no arrangements possible.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sol:
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define IOS ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define test int T; cin >> T; while (T--)
+#define ll long long int
+#define ld long double
+#define endl "\n"
+#define sss " "
+#define mod 100000000
+
+
+int N1,N2,K1,K2;
+string s,t;
+int arr[100005][3];
+int dp[102][102][12][2];
+int back[3001][3001];
+string subs;
+string a;
+
+int rec(int idx1,int idx2,int k,int ch){
+	if((ch == 0 && k > K1) || (ch == 1 && k > K2)){
+		return 0;
+	}
+	if(idx1 == N1 && idx2 == N2){
+		return 1;
+	}
+	if(idx1 > N1 || idx2 > N2){
+		return 0;
+	}
+
+	if(dp[idx1][idx2][k][ch] != -1) return dp[idx1][idx2][k][ch];
+
+	int ans = 0;
+	if(ch == 0){
+		ans = (rec(idx1+1,idx2,k+1,0)%mod + rec(idx1,idx2+1,1,1)%mod)%mod; 
+	}
+	else
+		ans = (rec(idx1+1,idx2,1,0)%mod + rec(idx1,idx2+1,k+1,1)%mod)%mod;
+	return dp[idx1][idx2][k][ch] = ans;
+}
+
+void solve(){
+	cin >> N1 >> N2 >> K1 >> K2;
+	memset(dp, -1,sizeof(dp));
+	cout << rec(0,0,0,0)%mod << endl;
+}
+
+int main(){
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+#endif
+	IOS
+	//pre();
+	test
+		solve();
+	return 0;
+}
