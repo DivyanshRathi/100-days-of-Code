@@ -1,0 +1,165 @@
+Description
+
+There are N people working on a project, where they have to write exactly M lines of code. The i-th person makes Ai bugs in every line of code that he writes. The first person writes X1 lines of code, the second person writes X2 lines of code, and so on, such that X1 + X2 + ….+ Xn = M. You have to find the number of distinct plans (X1, X2,….Xn, where Xi≥0 and sum of Xi = M) which have at most B bugs. Since the answer might be large, print it modulo 109+7.
+
+Input Format
+
+The first line contains four space-separated integers N, M, B.
+
+The second line contains N space-separated integers.
+
+Output Format
+
+Print the number of distinct plans which have exactly B bugs. Since the answer might be large, print it modulo 109+7.
+
+Constraints
+
+1≤ N, M ≤ 500
+
+0≤ B ≤ 500
+
+0≤ Ai ≤ 500
+Sample Input 1
+
+2 3 3
+1 2
+
+Sample Output 1
+
+1
+
+Sample Input 2
+
+2 3 4
+1 2
+
+Sample Output 2
+
+2
+
+Sample Input 3
+
+2 2 4
+1 2
+
+Sample Output 3
+
+3
+
+Note
+
+For the first test case, there is only one case i.e. when the first programmer writes the whole code because then all 3 lines of code will have 3 bugs.
+
+For the second test case, there can be two plans: first programmer writes 2 lines and second programmer writes 1 lines(Number of bugs would be 4), and first programmer writes 3 lines and second programmer does not write any line of code(Number of bugs would be 3 ≤ 4).
+
+For the third test case, there can be three plans: first programmer writes 2 lines and second programmer writes 0 lines(Number of bugs would be 3 ≤ 4), and first programmer writes 1 line and second programmer writes 1 line(Number of bugs would be 3 ≤ 4) and first programmer writes 0 lines and second programmer writes 2 lines(Number of bugs would be 4 ≤ 4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sol:
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define IOS ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define test int T; cin >> T; while (T--)
+#define ll long long int
+#define ld long double
+#define endl "\n"
+#define sss " "
+#define mod 1000000007
+
+
+int N,M,B;
+int dp[505][505][505];
+int arr[505];
+
+int rec(int level,int linCount,int bugCount){
+	if(level == N) return 0;
+	if(bugCount > B) return 0;
+	if(linCount == M){
+		if(bugCount <= B) return 1;
+		else return 0;
+	}
+
+	if(dp[level][linCount][bugCount] != -1) return dp[level][linCount][bugCount];
+
+	int ans = rec(level+1,linCount,bugCount)%mod + rec(level,linCount+1,bugCount+arr[level])%mod;
+
+	return dp[level][linCount][bugCount] = ans%mod;
+}
+
+
+void solve(){
+	cin >> N >> M >> B;
+	memset(dp,-1,sizeof(dp));
+	for(int i = 0; i < N; i++){
+		cin >> arr[i];
+	}
+	int ans = 0;
+	ans = rec(0,0,0);
+	cout << ans << endl;
+	
+}
+
+int main(){
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	IOS
+
+	//test
+		solve();
+	return 0;
+}
