@@ -1,0 +1,144 @@
+Description
+
+You are given N bricks in a line and M different coloured buckets of paint. You have to find the number of ways you can colour the brick wall such that there are exactly K positions out of the N bricks such that it has a different colour from the brick wall on its immediate left. (except the first brick, since there is no left brick). Print it modulo 10^9+7.
+
+ 
+
+ 
+
+Input Format
+
+The first line of the input contains one integer T - the number of test cases. Then T test cases follow.
+
+The first and only line of each test case contains three space-separated integers N, M, K.
+
+ 
+
+Output Format
+
+For each test case, print the number of ways you can colour the brick wall satisfying the given condition % 10^9+7.
+
+Constraints
+
+1≤ T ≤ 100
+
+1≤ N, M ≤ 2000
+
+0≤ K ≤ N-1
+
+It is guaranteed that the sum of N*K over all test cases does not exceed 4*108.
+Sample Input 1
+
+3
+3 2 2
+2 2 1
+3 5 0
+
+Sample Output 1
+
+2
+2
+5
+
+Note
+
+For the first test case, the following are the 2 different arrangements possible:
+
+For the second test case, the following are the 2 different arrangements possible:
+
+For the third test case, the following are the 5 different arrangements possible:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sol:
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define IOS ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define test int T; cin >> T; while (T--)
+#define ll long long int
+#define ld long double
+#define endl "\n"
+#define sss " "
+#define mod 1000000007
+
+
+int N,M,K;
+int dp[2005][2005];
+
+int rec(int idx,int k){
+	if(idx == N){
+		if(k == K) return 1;
+		else return 0;
+	}
+	if(dp[idx][k] != -1) return dp[idx][k];
+
+	int ans = (1LL*(M-1)*rec(idx+1,k+1)%mod + rec(idx+1,k)%mod)%mod;
+
+	return dp[idx][k] = ans;
+}
+
+
+void solve(){
+	cin >> N >> M >> K;
+	memset(dp,-1,sizeof(dp));
+	cout << (1LL*M*rec(1,0))%mod << endl;	 
+}
+
+int main(){
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	IOS
+
+	test
+		solve();
+	return 0;
+}
